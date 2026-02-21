@@ -2,26 +2,246 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 240 10% 4%;
+    --foreground: 36 20% 94%;
+    --card: 240 8% 8%;
+    --card-foreground: 36 20% 94%;
+    --popover: 240 8% 8%;
+    --popover-foreground: 36 20% 94%;
+    --primary: 12 100% 64%;
+    --primary-foreground: 240 10% 4%;
+    --secondary: 38 90% 55%;
+    --secondary-foreground: 240 10% 4%;
+    --muted: 240 6% 14%;
+    --muted-foreground: 270 4% 54%;
+    --accent: 12 100% 64%;
+    --accent-foreground: 240 10% 4%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 36 20% 94%;
+    --border: 240 6% 16%;
+    --input: 240 6% 16%;
+    --ring: 12 100% 64%;
+    --radius: 0.625rem;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  ::selection {
+    background: hsl(12 100% 64% / 0.3);
+    color: hsl(36 20% 94%);
+  }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* ─── Animated gradient mesh background ─── */
+.hero-mesh {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero-mesh::before {
+  content: "";
+  position: absolute;
+  width: 140%;
+  height: 140%;
+  top: -20%;
+  left: -20%;
+  background:
+    radial-gradient(ellipse 600px 600px at 20% 30%, hsl(12 100% 64% / 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 500px at 75% 20%, hsl(38 90% 55% / 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 800px 400px at 50% 80%, hsl(270 60% 50% / 0.06) 0%, transparent 70%);
+  animation: mesh-drift 20s ease-in-out infinite alternate;
+}
+
+@keyframes mesh-drift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(-3%, 2%) rotate(1deg); }
+  100% { transform: translate(2%, -1%) rotate(-0.5deg); }
+}
+
+/* ─── Noise overlay ─── */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* ─── Glass morphism nav ─── */
+.glass-nav {
+  background: hsl(240 10% 4% / 0.7);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom: 1px solid hsl(240 6% 16% / 0.6);
+}
+
+/* ─── Gradient text ─── */
+.gradient-text {
+  background: linear-gradient(135deg, hsl(12 100% 64%) 0%, hsl(38 90% 55%) 50%, hsl(12 100% 70%) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Card glow on hover ─── */
+.card-glow {
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.card-glow::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, hsl(12 100% 64% / 0.15), hsl(38 90% 55% / 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: -1;
+}
+
+.card-glow:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px -15px hsl(12 100% 64% / 0.15);
+}
+
+.card-glow:hover::after {
+  opacity: 1;
+}
+
+/* ─── Infinite scroll ticker ─── */
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 30s linear infinite;
+}
+
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+/* ─── Scroll fade-in ─── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Stagger children ─── */
+.stagger > * { transition-delay: calc(var(--i, 0) * 100ms); }
+
+/* ─── Button styles ─── */
+.btn-primary {
+  background: linear-gradient(135deg, hsl(12 100% 64%), hsl(24 100% 58%));
+  color: hsl(240 10% 4%);
+  font-weight: 600;
+  border-radius: var(--radius);
+  padding: 0.75rem 2rem;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 4px 20px -4px hsl(12 100% 64% / 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, hsl(38 90% 55%), hsl(12 100% 68%));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px -4px hsl(12 100% 64% / 0.5);
+}
+
+.btn-primary:hover::before {
+  opacity: 1;
+}
+
+.btn-primary span {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-ghost {
+  border: 1px solid hsl(240 6% 20%);
+  color: hsl(36 20% 94%);
+  font-weight: 500;
+  border-radius: var(--radius);
+  padding: 0.75rem 2rem;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.btn-ghost:hover {
+  border-color: hsl(12 100% 64% / 0.5);
+  background: hsl(12 100% 64% / 0.05);
+  color: hsl(12 100% 72%);
+}
+
+/* ─── Stat counter pulse ring ─── */
+.pulse-ring {
+  position: relative;
+}
+
+.pulse-ring::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid hsl(12 100% 64% / 0.2);
+  animation: pulse-expand 3s ease-in-out infinite;
+}
+
+@keyframes pulse-expand {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.15); opacity: 0; }
+}
+
+/* ─── Scrollbar styling ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(240 10% 4%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(240 6% 20%);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(12 100% 64% / 0.5);
 }
