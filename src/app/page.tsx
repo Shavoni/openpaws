@@ -1,3 +1,5 @@
+import Link from 'next/link'
+import Image from 'next/image'
 import { PawPrint, Sparkles, Zap, Users, BarChart3, ArrowRight } from 'lucide-react'
 
 export default function Home() {
@@ -8,9 +10,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center animate-paw-squeeze">
-                <PawPrint className="w-6 h-6 text-white" />
-              </div>
+              <Image src="/logo.png" alt="OpenPaws" width={40} height={40} className="animate-paw-squeeze" />
               <span className="text-xl font-bold text-gray-900">OpenPaws</span>
             </div>
             <nav className="hidden md:flex items-center gap-8">
@@ -19,10 +19,10 @@ export default function Home() {
               <a href="#pricing" className="text-gray-600 hover:text-orange-500 transition-colors">Pricing</a>
             </nav>
             <div className="flex items-center gap-3">
-              <button className="text-gray-600 hover:text-orange-500 font-medium">Sign In</button>
-              <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+              <Link href="/login" className="text-gray-600 hover:text-orange-500 font-medium">Sign In</Link>
+              <Link href="/signup" className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-medium transition-colors">
                 Get Started
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -44,13 +44,13 @@ export default function Home() {
             and continuously improve your content strategy — so you can focus on your business.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors flex items-center gap-2">
+            <Link href="/signup" className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors flex items-center gap-2">
               Start Free Trial
               <ArrowRight className="w-5 h-5" />
-            </button>
-            <button className="border border-gray-300 hover:border-orange-500 text-gray-700 px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
+            </Link>
+            <Link href="#how-it-works" className="border border-gray-300 hover:border-orange-500 text-gray-700 px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
               Watch Demo
-            </button>
+            </Link>
           </div>
           
           {/* Paw Print Decoration */}
@@ -230,9 +230,9 @@ export default function Home() {
                   <span className="text-orange-500">✓</span> Brand memory
                 </li>
               </ul>
-              <button className="w-full border border-orange-500 text-orange-500 hover:bg-orange-50 py-3 rounded-lg font-medium transition-colors">
+              <Link href="/signup" className="block w-full text-center border border-orange-500 text-orange-500 hover:bg-orange-50 py-3 rounded-lg font-medium transition-colors">
                 Start Free
-              </button>
+              </Link>
             </div>
 
             {/* Pro - Featured */}
@@ -263,9 +263,9 @@ export default function Home() {
                   <span className="text-orange-500">✓</span> Self-optimizing schedule
                 </li>
               </ul>
-              <button className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-lg font-medium transition-colors">
+              <Link href="/signup" className="block w-full text-center bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-lg font-medium transition-colors">
                 Start Free Trial
-              </button>
+              </Link>
             </div>
 
             {/* Agency */}
@@ -293,9 +293,9 @@ export default function Home() {
                   <span className="text-orange-500">✓</span> Priority support
                 </li>
               </ul>
-              <button className="w-full border border-orange-500 text-orange-500 hover:bg-orange-50 py-3 rounded-lg font-medium transition-colors">
+              <Link href="/signup" className="block w-full text-center border border-orange-500 text-orange-500 hover:bg-orange-50 py-3 rounded-lg font-medium transition-colors">
                 Contact Sales
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -310,9 +310,9 @@ export default function Home() {
           <p className="text-orange-100 text-lg mb-8">
             Join thousands of brands already growing with OpenPaws
           </p>
-          <button className="bg-white text-orange-500 hover:bg-gray-100 px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
+          <Link href="/signup" className="inline-block bg-white text-orange-500 hover:bg-gray-100 px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
             Start Your Free Trial
-          </button>
+          </Link>
         </div>
       </section>
 
@@ -321,7 +321,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-2">
-              <PawPrint className="w-6 h-6 text-orange-500" />
+              <Image src="/logo.png" alt="OpenPaws" width={32} height={32} />
               <span className="text-white font-semibold">OpenPaws</span>
             </div>
             <div className="flex gap-8">

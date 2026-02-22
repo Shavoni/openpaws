@@ -13,10 +13,16 @@ const PROTECTED_PATHS = [
 const AUTH_PATHS = ['/login', '/signup']
 
 export async function middleware(request: NextRequest) {
-  let response = NextResponse.next({ request: { headers: request.headers } })
+  const response = NextResponse.next({ request: { headers: request.headers } })
+
+  // Skip auth if Supabase is not configured
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  if (!supabaseUrl || supabaseUrl === 'your_supabase_url' || !supabaseUrl.startsWith('http')) {
+    return response
+  }
 
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    supabaseUrl,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
@@ -25,12 +31,10 @@ export async function middleware(request: NextRequest) {
         },
         set(name: string, value: string, options: CookieOptions) {
           request.cookies.set({ name, value, ...options })
-          response = NextResponse.next({ request: { headers: request.headers } })
           response.cookies.set({ name, value, ...options })
         },
         remove(name: string, options: CookieOptions) {
           request.cookies.set({ name, value: '', ...options })
-          response = NextResponse.next({ request: { headers: request.headers } })
           response.cookies.set({ name, value: '', ...options })
         },
       },
@@ -41,7 +45,6 @@ export async function middleware(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname
 
-  // Protect dashboard routes — redirect unauthenticated users to login
   const isProtected = PROTECTED_PATHS.some((path) => pathname.startsWith(path))
   if (!user && isProtected) {
     const redirectUrl = request.nextUrl.clone()
@@ -50,7 +53,6 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(redirectUrl)
   }
 
-  // Redirect authenticated users away from auth pages to dashboard
   const isAuthPage = AUTH_PATHS.some((path) => pathname === path)
   if (user && isAuthPage) {
     return NextResponse.redirect(new URL('/content', request.url))

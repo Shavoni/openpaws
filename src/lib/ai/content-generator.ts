@@ -121,14 +121,65 @@ export async function analyzeBrandFromUrl(url: string): Promise<GenerateContentR
     [
       {
         role: 'system',
-        content: 'You are a brand strategist. Analyze the brand described and extract: brand voice, tone, target audience, key topics, and content guidelines. Respond in structured format.',
+        content: 'You are a brand strategist. Analyze the brand from the given URL and return ONLY valid JSON, no markdown, no code fences, no explanation. Just the raw JSON object.',
       },
       {
         role: 'user',
-        content: `Analyze this brand's website and extract their brand identity: ${url}\n\nProvide:\n- Brand Voice (2-3 sentences describing how they communicate)\n- Tone (one word: professional, casual, witty, inspirational, educational, bold, friendly, authoritative)\n- Target Audience (who they're talking to)\n- Key Topics (5-10 topics they cover)\n- Content Guidelines (dos and don'ts based on their style)`,
+        content: `Analyze this brand: ${url}
+
+Return ONLY this JSON structure (no markdown, no code fences):
+{
+  "brandName": "the brand or creator name",
+  "brandVoice": "2-3 sentences describing how they communicate",
+  "brandTone": "one of: confident, warm, educational, playful, professional, witty, bold, empathetic",
+  "targetAudience": "1-2 sentences describing who they talk to",
+  "topicsInclude": ["topic1", "topic2", "topic3", "topic4", "topic5"],
+  "topicsExclude": ["topic to avoid 1", "topic to avoid 2", "topic to avoid 3"],
+  "brandGuidelines": "2-3 sentences on content dos and don'ts",
+  "examplePosts": ["A sample social media post written in this brand's voice", "Another sample post in their style"]
+}`,
       },
     ],
     { maxTokens: 1024, temperature: 0.5 }
+  )
+
+  return mapResult(response)
+}
+
+export interface RestyleBrandRequest {
+  brandName: string
+  targetAudience: string
+  topicsInclude: string[]
+  tones: string[]
+}
+
+export async function restyleBrand(req: RestyleBrandRequest): Promise<GenerateContentResult> {
+  const toneList = req.tones.join(', ')
+  const topicList = req.topicsInclude.join(', ')
+
+  const response = await generateAI(
+    [
+      {
+        role: 'system',
+        content: 'You are a brand voice specialist. Rewrite brand content to match a specific tone. Return ONLY valid JSON, no markdown, no code fences.',
+      },
+      {
+        role: 'user',
+        content: `Brand: ${req.brandName}
+Audience: ${req.targetAudience}
+Topics: ${topicList}
+Desired tone: ${toneList}
+
+Rewrite the brand voice description and example posts to match the "${toneList}" tone.
+
+Return ONLY this JSON (no markdown, no code fences):
+{
+  "brandVoice": "2-3 sentences describing how this brand communicates in a ${toneList} tone",
+  "examplePosts": ["A social media post in a ${toneList} tone for this brand", "Another ${toneList} post for this brand", "A third ${toneList} post for this brand"]
+}`,
+      },
+    ],
+    { maxTokens: 512, temperature: 0.8 }
   )
 
   return mapResult(response)

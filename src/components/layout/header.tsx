@@ -61,7 +61,7 @@ export function Header() {
     // Dynamic import to avoid SSR issues
     const { createClient } = await import('@/lib/supabase')
     const supabase = createClient()
-    await supabase.auth.signOut()
+    if (supabase) await supabase.auth.signOut()
     router.push('/login')
     router.refresh()
   }

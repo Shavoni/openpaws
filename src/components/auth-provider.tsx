@@ -15,7 +15,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // Dynamic import to avoid SSR issues
     import('@/lib/supabase').then(({ createClient }) => {
-      const supabase = createClient()
+      const maybeSupabase = createClient()
+      if (!maybeSupabase) return
+      const supabase = maybeSupabase
 
       async function loadUserData(userId: string) {
         const { data: profile } = await supabase

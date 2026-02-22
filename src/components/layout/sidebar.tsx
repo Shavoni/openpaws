@@ -1,9 +1,9 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import {
-  PawPrint,
   FileText,
   Calendar,
   BarChart3,
@@ -57,10 +57,8 @@ export function Sidebar() {
         )}
       >
         {/* Logo block */}
-        <div className="flex h-14 items-center gap-2.5 border-b border-warm-200 px-4">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-orange-500">
-            <PawPrint className="h-4.5 w-4.5 text-white" />
-          </div>
+        <div className="flex h-14 items-center gap-2 border-b border-warm-200 px-3">
+          <Image src="/logo.png" alt="OpenPaws" width={36} height={36} className="shrink-0" />
           {!sidebarCollapsed && (
             <span className="text-lg font-bold text-warm-800 font-display">OpenPaws</span>
           )}

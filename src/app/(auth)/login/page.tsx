@@ -23,6 +23,11 @@ function LoginForm() {
     setLoading(true)
 
     const supabase = createClient()
+    if (!supabase) {
+      // Dev mode: no Supabase, skip straight to dashboard
+      router.push(redirectTo)
+      return
+    }
     const { error } = await supabase.auth.signInWithPassword({ email, password })
 
     if (error) {
@@ -38,6 +43,7 @@ function LoginForm() {
   async function handleGoogleLogin() {
     setError(null)
     const supabase = createClient()
+    if (!supabase) { router.push(redirectTo); return }
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {

@@ -1,13 +1,11 @@
-import { PawPrint } from 'lucide-react'
+import Image from 'next/image'
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white flex flex-col items-center justify-center px-4">
-      <div className="mb-8 flex items-center gap-2">
-        <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
-          <PawPrint className="w-6 h-6 text-white" />
-        </div>
-        <span className="text-2xl font-bold text-gray-900">OpenPaws</span>
+      <div className="mb-8 flex flex-col items-center gap-3">
+        <Image src="/logo.png" alt="OpenPaws" width={120} height={120} priority className="drop-shadow-md" />
+        <span className="text-2xl font-bold text-gray-900 tracking-tight">OpenPaws</span>
       </div>
       <div className="w-full max-w-md">
         {children}
