@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
+import { PawIconFilled } from '@/components/ui/paw-icon'
 import {
   FileText,
   Calendar,
@@ -49,20 +50,27 @@ export function Sidebar() {
 
       <aside
         className={cn(
-          'fixed left-0 top-0 z-50 flex h-screen flex-col border-r border-warm-200 bg-warm-50 transition-all duration-300 ease-in-out',
+          'fixed left-0 top-0 z-50 flex h-screen flex-col border-r border-warm-200 bg-warm-50 transition-all duration-300 ease-in-out overflow-hidden',
           sidebarCollapsed ? 'w-[72px]' : 'w-[260px]',
           // Mobile: slide-over drawer
           'max-lg:-translate-x-full max-lg:shadow-elevated',
           !sidebarCollapsed && 'max-lg:translate-x-0'
         )}
       >
-        {/* Logo block */}
-        <div className="flex h-14 items-center gap-2 border-b border-warm-200 px-3">
-          <Image src="/logo.png" alt="OpenPaws" width={36} height={36} className="shrink-0" />
+        {/* Ambient paw print texture on sidebar */}
+        <div className="pointer-events-none absolute inset-0 select-none" aria-hidden="true">
+          <PawIconFilled size={24} className="absolute top-[30%] right-2 text-orange-300" opacity={0.05} />
+          <PawIconFilled size={18} className="absolute top-[50%] left-3 text-orange-300 rotate-[-20deg]" opacity={0.04} />
+          <PawIconFilled size={20} className="absolute top-[75%] right-4 text-orange-300 rotate-[15deg]" opacity={0.05} />
+        </div>
+
+        {/* Logo block — links back to landing page */}
+        <Link href="/" className="flex h-14 items-center gap-2.5 border-b border-warm-200 px-3 hover:bg-warm-100 transition-colors">
+          <Image src="/logo.png" alt="OpenPaws" width={40} height={40} className="shrink-0 drop-shadow-sm" />
           {!sidebarCollapsed && (
             <span className="text-lg font-bold text-warm-800 font-display">OpenPaws</span>
           )}
-        </div>
+        </Link>
 
         {/* Workspace switcher */}
         {!sidebarCollapsed && (
@@ -93,13 +101,20 @@ export function Sidebar() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-150',
+                  'group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-150',
                   isActive
-                    ? 'bg-orange-50 text-orange-700 font-semibold border-l-[3px] border-orange-500 pl-[9px]'
+                    ? 'bg-orange-50 text-orange-700 font-semibold'
                     : 'text-warm-600 hover:bg-warm-100 hover:text-warm-800'
                 )}
                 title={sidebarCollapsed ? item.label : undefined}
               >
+                {/* Paw print indicator for active nav */}
+                {isActive && (
+                  <PawIconFilled
+                    size={10}
+                    className="absolute left-1 text-orange-500"
+                  />
+                )}
                 <Icon className={cn(
                   'h-[18px] w-[18px] shrink-0',
                   isActive ? 'text-orange-600' : 'text-warm-400 group-hover:text-warm-600'

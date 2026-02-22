@@ -3,8 +3,9 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import {
-  Share2, Instagram, Linkedin, Twitter, Facebook, Youtube, Music, Trash2,
+  Share2, Instagram, Linkedin, Twitter, Facebook, Youtube, Music, Trash2, PawPrint,
 } from 'lucide-react'
+import { PawIcon } from '@/components/ui/paw-icon'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -72,12 +73,18 @@ export default function AccountsPage() {
     <div className="space-y-8">
       {/* Connected accounts */}
       <div>
-        <h3 className="text-[13px] font-semibold uppercase tracking-wide text-warm-500 mb-4">
+        <h3 className="flex items-center gap-1.5 text-[13px] font-semibold uppercase tracking-wide text-warm-500 mb-4">
+          <PawIcon size={12} className="text-orange-400" opacity={0.6} />
           Connected
         </h3>
 
         {connectedAccounts.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-warm-200 bg-warm-50/50 py-12 text-center animate-fade-in-up">
+          <div className="relative flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-warm-200 bg-warm-50/50 py-12 text-center animate-fade-in-up overflow-hidden">
+            {/* Paw prints — mascot was here */}
+            <PawPrint className="absolute top-4 left-6 h-6 w-6 text-orange-300 opacity-[0.12] rotate-[-25deg]" aria-hidden="true" />
+            <PawPrint className="absolute top-8 left-16 h-5 w-5 text-orange-300 opacity-[0.09] rotate-[20deg]" aria-hidden="true" />
+            <PawPrint className="absolute bottom-6 right-8 h-7 w-7 text-orange-300 opacity-[0.1] rotate-[35deg]" aria-hidden="true" />
+            <PawPrint className="absolute bottom-10 right-20 h-5 w-5 text-orange-300 opacity-[0.07] rotate-[-10deg]" aria-hidden="true" />
             <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-orange-50">
               <Share2 className="h-8 w-8 text-orange-400" />
             </div>
@@ -157,7 +164,8 @@ export default function AccountsPage() {
       {/* Available to connect */}
       {availablePlatforms.length > 0 && (
         <div>
-          <h3 className="text-[13px] font-semibold uppercase tracking-wide text-warm-500 mb-4">
+          <h3 className="flex items-center gap-1.5 text-[13px] font-semibold uppercase tracking-wide text-warm-500 mb-4">
+            <PawIcon size={12} className="text-orange-400" opacity={0.6} />
             Available to Connect
           </h3>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">

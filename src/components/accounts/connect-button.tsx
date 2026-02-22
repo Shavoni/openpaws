@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { ExternalLink, Loader2 } from 'lucide-react'
+import { ExternalLink } from 'lucide-react'
+import { PawSpinner } from '@/components/ui/paw-icon'
 import { Button } from '@/components/ui/button'
 import { PlatformSetupDialog } from './platform-setup-dialog'
 import { useSocialAccountsStore } from '@/stores/social-accounts-store'
@@ -113,7 +114,7 @@ export function ConnectButton({ platform, onConnected }: ConnectButtonProps) {
         disabled={loading}
       >
         {loading ? (
-          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+          <PawSpinner size={14} className="text-orange-500" />
         ) : (
           <ExternalLink className="h-3.5 w-3.5" />
         )}

@@ -15,6 +15,7 @@ import { cn } from '@/lib/utils'
 import { useUIStore } from '@/stores/ui-store'
 import { useAppStore } from '@/stores/app-store'
 import { Button } from '@/components/ui/button'
+import { PawIcon } from '@/components/ui/paw-icon'
 import { useState, useRef, useEffect } from 'react'
 
 const pageTitles: Record<string, string> = {
@@ -84,7 +85,8 @@ export function Header() {
           <Menu className="h-5 w-5" />
         </button>
 
-        <h1 className="text-[28px] font-bold font-display text-warm-800 leading-tight">
+        <h1 className="flex items-center gap-2 text-[28px] font-bold font-display text-warm-800 leading-tight">
+          <PawIcon size={20} className="text-orange-400" opacity={0.5} />
           {title}
         </h1>
       </div>

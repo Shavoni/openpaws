@@ -29,8 +29,23 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 md:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="relative py-20 md:py-32 overflow-hidden">
+        {/* Giant mascot backdrop — iconic placement */}
+        <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.06] select-none">
+          <Image src="/logo.png" alt="" width={900} height={900} priority aria-hidden="true" className="animate-float" />
+        </div>
+        <div className="pointer-events-none absolute -right-32 top-10 opacity-[0.04] select-none hidden lg:block">
+          <Image src="/logo.png" alt="" width={500} height={500} aria-hidden="true" className="rotate-[15deg]" />
+        </div>
+        <div className="pointer-events-none absolute -left-24 bottom-0 opacity-[0.04] select-none hidden lg:block">
+          <Image src="/logo.png" alt="" width={400} height={400} aria-hidden="true" className="rotate-[-10deg]" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          {/* Mascot hero badge */}
+          <div className="mb-6">
+            <Image src="/logo.png" alt="OpenPaws mascot" width={160} height={160} priority className="mx-auto drop-shadow-xl animate-paw-squeeze" />
+          </div>
           <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-700 px-4 py-2 rounded-full text-sm font-medium mb-8">
             <Sparkles className="w-4 h-4" />
             Powered by Autonomous AI Agents
@@ -40,7 +55,7 @@ export default function Home() {
             <span className="text-orange-500">Autopilot.</span>
           </h1>
           <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-            OpenPaws uses intelligent AI agents that learn your brand, optimize posting schedules, 
+            OpenPaws uses intelligent AI agents that learn your brand, optimize posting schedules,
             and continuously improve your content strategy — so you can focus on your business.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -52,7 +67,7 @@ export default function Home() {
               Watch Demo
             </Link>
           </div>
-          
+
           {/* Paw Print Decoration */}
           <div className="mt-16 flex justify-center gap-4 opacity-30">
             <PawPrint className="w-8 h-8 text-orange-400 animate-float" style={{ animationDelay: '0s' }} />
@@ -63,7 +78,14 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 bg-white">
+      <section id="features" className="relative py-20 bg-white">
+        {/* Paw prints scattered across features */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden select-none" aria-hidden="true">
+          <PawPrint className="absolute top-12 left-[8%] w-8 h-8 text-orange-300 opacity-[0.08] rotate-[-20deg]" />
+          <PawPrint className="absolute top-32 right-[10%] w-6 h-6 text-orange-300 opacity-[0.06] rotate-[30deg]" />
+          <PawPrint className="absolute bottom-20 left-[15%] w-7 h-7 text-orange-300 opacity-[0.07] rotate-[15deg]" />
+          <PawPrint className="absolute bottom-10 right-[20%] w-5 h-5 text-orange-300 opacity-[0.05] rotate-[-35deg]" />
+        </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -152,7 +174,15 @@ export default function Home() {
       </section>
 
       {/* How It Works */}
-      <section id="how-it-works" className="py-20 bg-orange-50">
+      <section id="how-it-works" className="relative py-20 bg-orange-50 overflow-hidden">
+        {/* Paw trail walking across the section */}
+        <div className="pointer-events-none absolute inset-0 select-none" aria-hidden="true">
+          <PawPrint className="absolute top-8 left-[5%] w-6 h-6 text-orange-400 opacity-[0.1] rotate-[35deg]" />
+          <PawPrint className="absolute top-16 left-[15%] w-6 h-6 text-orange-400 opacity-[0.08] rotate-[40deg]" />
+          <PawPrint className="absolute top-10 left-[25%] w-6 h-6 text-orange-400 opacity-[0.06] rotate-[35deg]" />
+          <PawPrint className="absolute bottom-12 right-[10%] w-7 h-7 text-orange-400 opacity-[0.08] rotate-[-25deg]" />
+          <PawPrint className="absolute bottom-8 right-[22%] w-7 h-7 text-orange-400 opacity-[0.06] rotate-[-20deg]" />
+        </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -196,7 +226,12 @@ export default function Home() {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="py-20 bg-white">
+      <section id="pricing" className="relative py-20 bg-white overflow-hidden">
+        {/* Subtle paw prints */}
+        <div className="pointer-events-none absolute inset-0 select-none" aria-hidden="true">
+          <PawPrint className="absolute top-20 right-[5%] w-10 h-10 text-orange-300 opacity-[0.05] rotate-[-15deg]" />
+          <PawPrint className="absolute bottom-16 left-[6%] w-9 h-9 text-orange-300 opacity-[0.06] rotate-[25deg]" />
+        </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -302,8 +337,16 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-orange-500">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="relative py-20 bg-orange-500 overflow-hidden">
+        {/* Mascot backdrop in CTA */}
+        <div className="pointer-events-none absolute -right-16 -bottom-10 opacity-[0.12] select-none">
+          <Image src="/logo.png" alt="" width={350} height={350} aria-hidden="true" className="rotate-[10deg]" />
+        </div>
+        <div className="pointer-events-none absolute -left-10 -top-10 opacity-[0.08] select-none hidden md:block">
+          <Image src="/logo.png" alt="" width={250} height={250} aria-hidden="true" className="rotate-[-15deg]" />
+        </div>
+
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Ready to Let AI Run Your Social?
           </h2>
