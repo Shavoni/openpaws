@@ -51,6 +51,7 @@ export interface Workspace {
 
 // Social Account (Connected Platform)
 export type SocialPlatform = 'instagram' | 'linkedin' | 'twitter' | 'tiktok' | 'youtube' | 'facebook'
+export type Platform = SocialPlatform
 
 export interface SocialAccount {
   id: string
